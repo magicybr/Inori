@@ -1,2 +1,3 @@
 # Inori
-一个关于Domain-Driver-Design的简单项目
+
+一个关于Domain-Driver-Design的Asp.Net Core简单项目
