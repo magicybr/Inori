@@ -1,5 +1,5 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { ThemeModule } from 'src/app/theme/theme/theme.module';
+import { ThemeModule } from 'src/app/theme/theme.module';
 import { ServicesModule } from 'src/app/services/services.module';
 import { PageModule } from 'src/app/pages/page/page.module';
 
