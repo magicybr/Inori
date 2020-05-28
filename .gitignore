@@ -16,3 +16,9 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+
+# compiled output
+/angular/UI/dist
+/angular/UI/tmp
+
+

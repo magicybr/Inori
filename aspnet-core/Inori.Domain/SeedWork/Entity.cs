@@ -1,9 +1,8 @@
 using System;
 namespace Inori.Domain.SeedWork
 {
-    public class Entity<T> : IEntity<T>
-        where T : IEquatable<T>
+    public class Entity : IEntity<int>
     {
-        public T Id { get; set; }
+        public int Id { get; set; }
     }
 }
