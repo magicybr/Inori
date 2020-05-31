@@ -1,25 +1,31 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { ThemeModule } from 'src/app/theme/theme.module';
-import { ServicesModule } from 'src/app/services/services.module';
-import { PageModule } from 'src/app/pages/page/page.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ServicesModule } from '../services/services.module';
+import { ThemeModule } from '../theme/theme.module';
+import { PagesModule } from '../pages/pages.module';
+
 
 
 @NgModule({
   declarations: [],
   imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
     ServicesModule,
     ThemeModule,
-    PageModule
+    PagesModule
   ], exports: [
+    BrowserModule,
+    BrowserAnimationsModule,
     ServicesModule,
     ThemeModule,
-    PageModule
+    PagesModule
   ]
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
     if (parentModule) {
-      // 核心模块已经被加载,在AppModule中仅导入一次核心模块
       throw new Error(`CoreModule has already been loaded. Import Core modules in the AppModule only.`);
     }
   }
