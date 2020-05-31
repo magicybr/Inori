@@ -2,25 +2,35 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServicesModule } from '../services/services.module';
-import { ThemeModule } from '../theme/theme.module';
-import { PagesModule } from '../pages/pages.module';
-
+import { AdminLayoutModule } from '../pages/layout/admin-layout/admin-layout.module';
+import { ComponentsModule } from '../pages/components/components.module';
+import { AdminLayoutComponent } from '../pages/layout/admin-layout/admin-layout.component';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from '../app-routing.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    AdminLayoutComponent
+  ],
   imports: [
-    BrowserModule,
     BrowserAnimationsModule,
-    ServicesModule,
-    ThemeModule,
-    PagesModule
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ComponentsModule,
+    RouterModule,
+    AppRoutingModule,
   ], exports: [
-    BrowserModule,
     BrowserAnimationsModule,
-    ServicesModule,
-    ThemeModule,
-    PagesModule
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ComponentsModule,
+    RouterModule,
+    AppRoutingModule,
   ]
 })
 export class CoreModule {
