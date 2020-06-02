@@ -1,14 +1,12 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ServicesModule } from '../services/services.module';
-import { AdminLayoutModule } from '../pages/layout/admin-layout/admin-layout.module';
 import { ComponentsModule } from '../pages/components/components.module';
 import { AdminLayoutComponent } from '../pages/layout/admin-layout/admin-layout.component';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ServicesModule } from '../services/services.module';
 
 
 @NgModule({
@@ -20,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ServicesModule,
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
@@ -28,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ServicesModule,
     ComponentsModule,
     RouterModule,
     AppRoutingModule,

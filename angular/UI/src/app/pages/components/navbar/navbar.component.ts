@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { ROUTES } from '../sidebar/sidebar.component';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { MENUITEMS } from '../../share/common';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -20,10 +20,10 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.listTitles = ROUTES.filter(listTitle => listTitle);
+    this.listTitles = MENUITEMS.filter(listTitle => listTitle);
     const navbar: HTMLElement = this.element.nativeElement;
     this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
-    this.router.events.subscribe((event) => {
+    this.router.events.subscribe(() => {
       this.sidebarClose();
       var $layer: any = document.getElementsByClassName('close-layer')[0];
       if ($layer) {
@@ -36,7 +36,7 @@ export class NavbarComponent implements OnInit {
   sidebarOpen() {
     const toggleButton = this.toggleButton;
     const body = document.getElementsByTagName('body')[0];
-    setTimeout(function () {
+    setTimeout(() => {
       toggleButton.classList.add('toggled');
     }, 500);
 
@@ -103,7 +103,6 @@ export class NavbarComponent implements OnInit {
 
       body.classList.add('nav-open');
       this.mobile_menu_visible = 1;
-
     }
   };
 

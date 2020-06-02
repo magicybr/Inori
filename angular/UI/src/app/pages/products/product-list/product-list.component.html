@@ -1,0 +1,44 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-danger">
+          <h4 class="card-title">商品列表</h4>
+          <p class="card-category">备注信息</p>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table mat-table [dataSource]="productDataSource" class="table">
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef class="text-primary"> No. </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+              </ng-container>
+              <ng-container matColumnDef="catalogType">
+                <th mat-header-cell *matHeaderCellDef class="text-primary"> 商品类别 </th>
+                <td mat-cell *matCellDef="let element"> {{element.catalogType}} </td>
+              </ng-container>
+              <ng-container matColumnDef="catalogBrand">
+                <th mat-header-cell *matHeaderCellDef class="text-primary"> 商品品牌 </th>
+                <td mat-cell *matCellDef="let element"> {{element.catalogBrand}} </td>
+              </ng-container>
+              <ng-container matColumnDef="productName">
+                <th mat-header-cell *matHeaderCellDef class="text-primary"> 商品名称 </th>
+                <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
+              </ng-container>
+              <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef class="text-primary"> 金额 </th>
+                <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+              </ng-container>
+              <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef class="text-primary"> 描述 </th>
+                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

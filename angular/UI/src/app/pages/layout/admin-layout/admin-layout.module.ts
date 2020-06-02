@@ -1,32 +1,29 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
 import { AdminLayoutRoutes } from './admin-layout-routing.module';
 import { RouterModule } from '@angular/router';
+
+import { ThemeModule } from '../../theme/theme.module';
+
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatRippleModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSelectModule } from '@angular/material/select';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RegularTablesComponent } from '../../tables/regular-tables/regular-tables.component';
+import { WizardFormsComponent } from '../../forms/wizard-forms/wizard-forms.component';
+import { RegularFormsComponent } from '../../forms/regular-forms/regular-forms.component';
+import { ProductsModule } from '../../products/products.module';
+
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    RegularFormsComponent,
+    WizardFormsComponent,
+    RegularTablesComponent
   ],
   imports: [
-    CommonModule,
-    RouterModule.forChild(AdminLayoutRoutes),
-    FormsModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatRippleModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatTooltipModule,
+    ThemeModule,
+    // ProductsModule,
+    RouterModule.forChild(AdminLayoutRoutes)
+  ], exports: [
+
   ]
 })
 export class AdminLayoutModule { }

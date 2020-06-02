@@ -1,0 +1,36 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card ">
+          <div class="card-header card-header-danger card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">mail_outline</i>
+            </div>
+            <h4 class="card-title">商品信息</h4>
+          </div>
+          <div class="card-body ">
+            <form [formGroup]="productService.form">
+              <mat-form-field class="example-full-width">
+                <input matInput formControlName="productName" placeholder="商品名称" type="text">
+                <mat-error *ngIf="">*必填</mat-error>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput formControlName="description" placeholder="Postal Code" type="text">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput formControlName="price" placeholder="Postal Code" type="text">
+              </mat-form-field>
+            </form>
+          </div>
+          <div class="card-footer">
+            <!-- <button mat-raised-button type="submit" class="btn btn-rose pull-right">Right Button</button>
+            <button mat-raised-button type="submit" class="btn btn-rose pull-left">Left Button</button> -->
+            <button mat-raised-button type="button" class="btn btn-danger">Left Button 3</button>
+            <button mat-raised-button type="button" class="btn btn-danger">Left Button 2</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
