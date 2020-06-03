@@ -6,8 +6,11 @@ import { ProductsComponent } from '../../products/products.component';
 
 export const AdminLayoutRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'regularforms', component: RegularFormsComponent },
-  { path: 'wizardforms', component: WizardFormsComponent },
+  // { path: 'regularforms', component: RegularFormsComponent },
+  // { path: 'wizardforms', component: WizardFormsComponent },
+  {
+    path: 'forms', loadChildren: () => import('../../forms/forms.module').then(m => m.FormsModule)
+  },
   {
     path: 'products', loadChildren: () => import('../../products/products.module').then(m => m.ProductsModule)
   }

@@ -8,6 +8,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -26,6 +28,8 @@ const MAT_MODULE = [
   MatTooltipModule,
   MatTableModule,
   MatIconModule,
+  MatCheckboxModule,
+  MatRadioModule,
 ]
 
 @NgModule({

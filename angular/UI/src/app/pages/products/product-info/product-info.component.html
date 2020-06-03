@@ -11,16 +11,84 @@
           </div>
           <div class="card-body ">
             <form [formGroup]="productService.form">
-              <mat-form-field class="example-full-width">
+              <mat-form-field class="example-full-width col-md-2">
                 <input matInput formControlName="productName" placeholder="商品名称" type="text">
                 <mat-error *ngIf="">*必填</mat-error>
               </mat-form-field>
-              <mat-form-field class="example-full-width">
+              <mat-form-field class="example-full-width col-md-2">
                 <input matInput formControlName="description" placeholder="Postal Code" type="text">
+              </mat-form-field>
+              <mat-form-field class="example-full-width col-md-2">
+                <mat-label>金额</mat-label>
+                <input matInput formControlName="price" placeholder="金额" class="example-amont-right-align"
+                  type="number">
+                <span matPrefix>RMB&nbsp;&nbsp;</span>
+                <span matSuffix>.00</span>
               </mat-form-field>
               <mat-form-field class="example-full-width">
                 <input matInput formControlName="price" placeholder="Postal Code" type="text">
               </mat-form-field>
+              <mat-form-field appearance="outline" class="example-full-width col-md-2">
+                <mat-label>Outline form field</mat-label>
+                <input formControlName="productName" matInput placeholder="Placeholder">
+                <!-- <mat-form-field appearance="fill"> -->
+                  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <!-- </mat-form-field> -->
+                <mat-hint>Hint</mat-hint>
+              </mat-form-field>
+              <mat-form-field appearance="outline" [floatLabel]="'always'" class="example-full-width col-md-2">
+                <mat-label>Outline form field</mat-label>
+                <input formControlName="productName" matInput placeholder="Placeholder">
+                <!-- <mat-form-field appearance="fill"> -->
+                  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <!-- </mat-form-field> -->
+                <mat-hint>Hint</mat-hint>
+              </mat-form-field>
+              <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+                <mat-label>Enter some input</mat-label>
+                <input matInput #input maxlength="10" placeholder="Ex. Nougat">
+                <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Select me</mat-label>
+                <mat-select>
+                  <mat-option value="option">Option</mat-option>
+                </mat-select>
+                <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
+              </mat-form-field>
+
+              <p>
+                <mat-form-field appearance="legacy">
+                  <mat-label>Legacy form field</mat-label>
+                  <input matInput placeholder="Placeholder">
+                  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                  <mat-hint>Hint</mat-hint>
+                </mat-form-field>
+              </p>
+              <p>
+                <mat-form-field appearance="standard">
+                  <mat-label>Standard form field</mat-label>
+                  <input matInput placeholder="Placeholder">
+                  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                  <mat-hint>Hint</mat-hint>
+                </mat-form-field>
+              </p>
+              <p>
+                <mat-form-field appearance="fill">
+                  <mat-label>Fill form field</mat-label>
+                  <input matInput placeholder="Placeholder">
+                  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                  <mat-hint>Hint</mat-hint>
+                </mat-form-field>
+              </p>
+              <p>
+                <mat-form-field appearance="outline">
+                  <mat-label>Outline form field</mat-label>
+                  <input matInput placeholder="Placeholder">
+                  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                  <mat-hint>Hint</mat-hint>
+                </mat-form-field>
+              </p>
             </form>
           </div>
           <div class="card-footer">
