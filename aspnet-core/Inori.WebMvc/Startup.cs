@@ -1,12 +1,14 @@
 using IdentityModel;
+using Inori.User;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.IdentityModel.Tokens.Jwt;
+using System.Security.Principal;
 
 namespace Inori.WebMvc
 {
@@ -21,7 +23,7 @@ namespace Inori.WebMvc
 
         public void ConfigureServices(IServiceCollection services)
         {
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            // JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
             services.AddAuthentication(options =>
             {
@@ -43,14 +45,19 @@ namespace Inori.WebMvc
                 options.ResponseType = "code";
 
                 options.Scope.Clear();
-                //options.Scope.Add("api1");
                 options.Scope.Add(OidcConstants.StandardScopes.OpenId);
                 options.Scope.Add(OidcConstants.StandardScopes.Profile);
                 options.Scope.Add(OidcConstants.StandardScopes.Email);
                 options.Scope.Add(OidcConstants.StandardScopes.OfflineAccess);
+                options.Scope.Add("api1");
             });
 
             services.AddControllersWithViews();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IPrincipal>(provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
+            services.AddTransient<ICurrentPrincipalAccessor, ThreadCurrentPrincipalAccessor>();
+            services.AddTransient<ICurrentUser, CurrentUser>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

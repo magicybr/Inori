@@ -1,16 +1,24 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
+
+export const idpBase = 'http://localhost:5000';
+export const apiBase = 'http://localhost:5001';
+export const angularBase = 'http://localhost:4200';
 
 export const environment = {
-  production: false
+  production: false,
+  apiBase,
+  openIdConnectSettings: {
+    authority: `${idpBase}`,
+    client_id: 'ngClient',
+    redirect_uri: `${angularBase}/callback.html`,
+    silent_redirect_uri: `${angularBase}/renew-callback.html`,
+    post_logout_redirect_uri: `${angularBase}/signout-callback.html`,
+    scope: 'api1 openid profile email',
+    response_type: 'id_token token',
+    automaticSilentRenew: true,
+    accessTokenExpiringNotificationTime: 4,
+    filterProtocolClaims: true,
+    loadUserInfo: true
+  }
 };
 
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+

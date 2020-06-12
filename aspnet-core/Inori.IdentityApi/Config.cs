@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using System.Security.Claims;
 using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
+using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace Inori.IdentityApi
 {
@@ -22,7 +22,7 @@ namespace Inori.IdentityApi
         {
             return new List<ApiResource>()
             {
-                new ApiResource("api1","My Api #1")
+                new ApiResource("api1","这里是测试资源")
             };
         }
 
@@ -31,29 +31,29 @@ namespace Inori.IdentityApi
             return new List<Client>()
             {
                 new Client{
-                    ClientId = "angular",
-                    ClientName = "angular spa",
-                    ClientUri = "http://localhost:4200",
-                    AllowedGrantTypes = GrantTypes.Implicit,
-                    AllowAccessTokensViaBrowser = true,
-                    RequireConsent = true,
-                    AccessTokenLifetime = 60,
-                    RedirectUris = {
-                        "http://localhost:4200/signin-oidc",
-                        "http://localhost:4200/redirect-silent-renew"
-                    },
-                    PostLogoutRedirectUris = {
-                        "http://localhost:4200"
-                    },
-                    AllowedCorsOrigins = {
-                        "http://localhost:4200"
-                    },
-                    AllowedScopes = {
-                        OidcConstants.StandardScopes.OpenId,
-                        OidcConstants.StandardScopes.Profile,
-                        OidcConstants.StandardScopes.Email,
-                        "api1"
-                    }
+                   ClientId = "ngClient",
+                   ClientName = "ngClient",
+                   ClientUri = "http://localhost:4200",
+                   AllowedGrantTypes = GrantTypes.Implicit,
+                   AllowAccessTokensViaBrowser = true,
+                   RequireConsent = true,
+                   AccessTokenLifetime = 60,
+                   RedirectUris = {
+                       "http://localhost:4200/callback.html",
+                       "http://localhost:4200/renew-callback.html"
+                   },
+                   PostLogoutRedirectUris = {
+                       "http://localhost:4200/signout-callback.html"
+                   },
+                   AllowedCorsOrigins = {
+                       "http://localhost:4200"
+                   },
+                   AllowedScopes = {
+                       OidcConstants.StandardScopes.OpenId,
+                       OidcConstants.StandardScopes.Profile,
+                       OidcConstants.StandardScopes.Email,
+                       "api1"
+                   }
                 },
                 new Client{
                     ClientId = "mvc",
@@ -65,12 +65,33 @@ namespace Inori.IdentityApi
                     PostLogoutRedirectUris = {"http://localhost:5002/signout-callback-oidc"},
                     AllowOfflineAccess = true,
                     AlwaysIncludeUserClaimsInIdToken = true,
-                    AccessTokenLifetime = 60,
+                    AccessTokenLifetime = 60, // 设置token超时时间
                     AllowedScopes = {
                         OidcConstants.StandardScopes.OpenId,
                         OidcConstants.StandardScopes.Profile,
                         OidcConstants.StandardScopes.Email,
-                        //"api1"
+                        "api1"
+                    }
+                },
+                new Client
+                {
+                    ClientId = "client",
+                    ClientName = "Swagger UI for api",
+                    ClientSecrets = { new Secret("client".Sha256())},
+                    AllowedGrantTypes = GrantTypes.ClientCredentials, // 指定允许的授权类型（AuthorizationCode，Implicit，Hybrid，ResourceOwner，ClientCredentials的合法组合）。
+                    AllowAccessTokensViaBrowser = true,      // 是否通过浏览器为此客户端传输访问令牌
+                    AllowOfflineAccess = true,
+                    AlwaysIncludeUserClaimsInIdToken = true,
+                    AccessTokenLifetime = 60,                // 设置token超时时间
+                    RedirectUris =
+                    {
+                        "http://localhost:5001/swagger/oauth2-redirect.html"
+                    },
+                    AllowedScopes = {
+                        OidcConstants.StandardScopes.OpenId,
+                        OidcConstants.StandardScopes.Profile,
+                        OidcConstants.StandardScopes.Email,
+                        "api1"
                     }
                 }
             };

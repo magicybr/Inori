@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { MENUITEMS } from '../../share/common';
+import { AuthService } from 'src/app/services/auth/auth.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -14,7 +15,12 @@ export class NavbarComponent implements OnInit {
   private toggleButton: any;
   private sidebarVisible: boolean;
 
-  constructor(location: Location, private element: ElementRef, private router: Router) {
+  constructor(
+    location: Location,
+    private element: ElementRef,
+    private router: Router,
+    public authService: AuthService
+  ) {
     this.location = location;
     this.sidebarVisible = false;
   }
@@ -43,15 +49,16 @@ export class NavbarComponent implements OnInit {
     body.classList.add('nav-open');
 
     this.sidebarVisible = true;
-  };
+  }
+
   sidebarClose() {
     const body = document.getElementsByTagName('body')[0];
     this.toggleButton.classList.remove('toggled');
     this.sidebarVisible = false;
     body.classList.remove('nav-open');
-  };
-  sidebarToggle() {
+  }
 
+  sidebarToggle() {
     var $toggle = document.getElementsByClassName('navbar-toggler')[0];
 
     if (this.sidebarVisible === false) {
@@ -104,7 +111,7 @@ export class NavbarComponent implements OnInit {
       body.classList.add('nav-open');
       this.mobile_menu_visible = 1;
     }
-  };
+  }
 
   getTitle() {
     var titlee = this.location.prepareExternalUrl(this.location.path());

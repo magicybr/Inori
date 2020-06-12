@@ -1,17 +1,33 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { WizardFormsComponent } from '../../forms/wizard-forms/wizard-forms.component';
-import { RegularFormsComponent } from '../../forms/regular-forms/regular-forms.component';
-import { ProductsComponent } from '../../products/products.component';
+import { AdminLayoutComponent } from './admin-layout.component';
+import { AuthGuard } from 'src/app/services/auth/auth.guard';
+
 
 export const AdminLayoutRoutes: Routes = [
-  { path: 'dashboard', component: DashboardComponent },
-  // { path: 'regularforms', component: RegularFormsComponent },
-  // { path: 'wizardforms', component: WizardFormsComponent },
   {
-    path: 'forms', loadChildren: () => import('../../forms/forms.module').then(m => m.FormsModule)
+    path: '',
+    component: AdminLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        canActivateChild: [AuthGuard],
+        children: [
+          {
+            path: 'dashboard',
+            component: DashboardComponent,
+          },
+          {
+            path: 'forms',
+            loadChildren: () => import('../../forms/forms.module').then(m => m.FormsModule),
+          },
+          {
+            path: 'products',
+            loadChildren: () => import('../../products/products.module').then(m => m.ProductsModule),
+          }
+        ]
+      }
+    ]
   },
-  {
-    path: 'products', loadChildren: () => import('../../products/products.module').then(m => m.ProductsModule)
-  }
 ];

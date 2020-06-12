@@ -5,13 +5,13 @@ import { AdminLayoutComponent } from '../pages/layout/admin-layout/admin-layout.
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ServicesModule } from '../services/services.module';
-
+import { AuthorizationHeaderInterceptor } from '../services/Interceptors/authorization-header.interceptor';
 
 @NgModule({
   declarations: [
-    AdminLayoutComponent
+    AdminLayoutComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -31,6 +31,12 @@ import { ServicesModule } from '../services/services.module';
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
+  ], providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthorizationHeaderInterceptor,
+      multi: true
+    }
   ]
 })
 export class CoreModule {

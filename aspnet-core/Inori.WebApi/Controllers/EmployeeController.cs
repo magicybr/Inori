@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Inori.User;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Inori.WebApi.Controllers
@@ -13,6 +11,14 @@ namespace Inori.WebApi.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase
     {
+        private readonly ICurrentUser _currentUser;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public EmployeeController(IHttpContextAccessor httpContextAccessor, ICurrentUser currentUser)
+        {
+            var user = httpContextAccessor.HttpContext.User;
+            this._currentUser = currentUser;
+        }
+
         public IActionResult Index()
         {
             return Ok();

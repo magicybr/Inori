@@ -11,7 +11,7 @@ import { RegularTablesComponent } from '../../tables/regular-tables/regular-tabl
 @NgModule({
   declarations: [
     DashboardComponent,
-    RegularTablesComponent
+    RegularTablesComponent,
   ],
   imports: [
     ThemeModule,

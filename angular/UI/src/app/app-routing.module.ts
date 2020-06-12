@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { AdminLayoutComponent } from './pages/layout/admin-layout/admin-layout.component';
+import { AuthGuard } from './services/auth/auth.guard';
+
 
 const routes: Routes = [
   {
@@ -12,11 +13,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: AdminLayoutComponent,
-    children: [{
-      path: '',
-      loadChildren: () => import('./pages/layout/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
-    }],
+    loadChildren: () => import('./pages/layout/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule),
+    canLoad: [AuthGuard]
   },
 ];
 
@@ -25,7 +23,7 @@ const routes: Routes = [
     CommonModule,
     BrowserModule,
     RouterModule.forRoot(routes, {
-      useHash: true
+      useHash: false
     })
   ],
   exports: [RouterModule]
