@@ -8,33 +8,29 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table mat-table [dataSource]="productDataSource" class="table">
+            <table mat-table [dataSource]="catalogDataSource" class="table">
               <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef class="text-primary"> No. </th>
                 <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-              </ng-container>
-              <ng-container matColumnDef="catalogType">
-                <th mat-header-cell *matHeaderCellDef class="text-primary"> 商品类别 </th>
-                <td mat-cell *matCellDef="let element"> {{element.catalogType}} </td>
-              </ng-container>
-              <ng-container matColumnDef="catalogBrand">
-                <th mat-header-cell *matHeaderCellDef class="text-primary"> 商品品牌 </th>
-                <td mat-cell *matCellDef="let element"> {{element.catalogBrand}} </td>
               </ng-container>
               <ng-container matColumnDef="productName">
                 <th mat-header-cell *matHeaderCellDef class="text-primary"> 商品名称 </th>
                 <td mat-cell *matCellDef="let element"> {{element.productName}} </td>
               </ng-container>
-              <ng-container matColumnDef="price">
-                <th mat-header-cell *matHeaderCellDef class="text-primary"> 金额 </th>
-                <td mat-cell *matCellDef="let element"> {{element.price}} </td>
-              </ng-container>
               <ng-container matColumnDef="description">
-                <th mat-header-cell *matHeaderCellDef class="text-primary"> 描述 </th>
+                <th mat-header-cell *matHeaderCellDef class="text-primary"> 商品描述 </th>
                 <td mat-cell *matCellDef="let element"> {{element.description}} </td>
               </ng-container>
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef class="text-primary"> 商品金额 </th>
+                <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+              </ng-container>
+              <ng-container matColumnDef="availableStock">
+                <th mat-header-cell *matHeaderCellDef class="text-primary"> 商品库存 </th>
+                <td mat-cell *matCellDef="let element">{{element.availableStock}}</td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="catalogDisplayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: catalogDisplayedColumns;"></tr>
             </table>
           </div>
         </div>

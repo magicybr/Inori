@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HttpHeaderCommonInterceptor } from './Interceptors/http-header-common.interceptor';
+import { SecurityHeadersInterceptor } from './Interceptors/security-headers.interceptor';
 
 @NgModule({
   declarations: [],
@@ -8,7 +8,7 @@ import { HttpHeaderCommonInterceptor } from './Interceptors/http-header-common.i
   exports: [],
   providers: [{
     provide: HTTP_INTERCEPTORS,
-    useClass: HttpHeaderCommonInterceptor,
+    useClass: SecurityHeadersInterceptor,
     multi: true
   }]
 })

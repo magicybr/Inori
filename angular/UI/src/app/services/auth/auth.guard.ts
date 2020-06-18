@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { ServicesModule } from '../services.module';
 
-@Injectable({ providedIn: ServicesModule})
+@Injectable({ providedIn: ServicesModule })
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   constructor(private authService: AuthService, private router: Router) {
 
@@ -14,19 +14,20 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     : boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
 
     const url: string = state.url;
-    console.log(`AuthGuard:CanActive Method,url:${url}`);
+    // console.log(`AuthGuard:CanActive Method,url:${url}`);
     return this.checkLogin(url);
   }
+
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot)
     : boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
 
-    console.log(`AuthGuard:CanChildActive Method,route:${childRoute},state:${state}`);
+    // console.log(`AuthGuard:CanChildActive Method,route:${childRoute},state:${state}`);
     return this.canActivate(childRoute, state);
 
   }
   canLoad(route: Route, segments: UrlSegment[]): boolean | Observable<boolean> | Promise<boolean> {
     const url = `/${route.path}`;
-    console.log(`AuthGuard:CanLoad Method,url:${url}`);
+    // console.log(`AuthGuard:CanLoad Method,url:${url}`);
     return this.checkLogin(url);
   }
   checkLogin(url: string): Observable<boolean> {
@@ -35,7 +36,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     isLoggedIn.subscribe((loggedin) => {
       if (!loggedin) {
         this.authService.triggerSignIn();
-        console.log('unauthorized');
+        // console.log('unauthorized');
       }
     });
 

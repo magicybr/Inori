@@ -75,10 +75,10 @@ namespace Inori.IdentityApi
                 },
                 new Client
                 {
-                    ClientId = "client",
+                    ClientId = "swagger_client_api",
                     ClientName = "Swagger UI for api",
-                    ClientSecrets = { new Secret("client".Sha256())},
-                    AllowedGrantTypes = GrantTypes.ClientCredentials, // 指定允许的授权类型（AuthorizationCode，Implicit，Hybrid，ResourceOwner，ClientCredentials的合法组合）。
+                    // ClientSecrets = { new Secret("client".Sha256())},
+                    AllowedGrantTypes = GrantTypes.Implicit, // 指定允许的授权类型（AuthorizationCode，Implicit，Hybrid，ResourceOwner，ClientCredentials的合法组合）。
                     AllowAccessTokensViaBrowser = true,      // 是否通过浏览器为此客户端传输访问令牌
                     AllowOfflineAccess = true,
                     AlwaysIncludeUserClaimsInIdToken = true,

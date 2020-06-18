@@ -4,10 +4,11 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 
-export class HttpHeaderCommonInterceptor implements HttpInterceptor {
+export class SecurityHeadersInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    // console.log('HttpHeaderCommonInterceptor');
     return next.handle(req.clone({
-      withCredentials: true
+      withCredentials: false,
     }));
   }
 }

@@ -1,13 +1,13 @@
-namespace Inori.Domain.Models.Catalogs
+namespace Inori.WebApi.Models
 {
-    public class CatalogItem
+    public class CatalogItemViewModel
     {
         public int Id { get; set; }
 
         /// <summary>
         /// 商品名称
         /// </summary>
-        public string Name { get; set; }
+        public string ProductName { get; set; }
 
         /// <summary>
         /// 商品描述
@@ -29,13 +29,10 @@ namespace Inori.Domain.Models.Catalogs
         /// </summary>
         public string PictureUri { get; set; }
 
-        public int CatalogTypeId { get; set; }
+        public int CatalogTypeCode { get; set; }
 
-        public CatalogType CatalogType { get; set; }
 
-        public int CatalogBrandId { get; set; }
-
-        public CatalogBrand CatalogBrand { get; set; }
+        public int CatalogBrandCode { get; set; }
 
         /// <summary>
         /// 库存数量(Quantity in stock)

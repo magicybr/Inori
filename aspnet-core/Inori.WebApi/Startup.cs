@@ -1,14 +1,20 @@
+using AutoMapper;
+using Inori.Domain.Infrastructure;
 using Inori.User;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSwag;
+using NSwag.AspNetCore;
 using NSwag.Generation.Processors.Security;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Security.Principal;
 
 namespace Inori.WebApi
@@ -24,14 +30,45 @@ namespace Inori.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // EntityFrameWorkCore 数据库配置
+            services.AddDbContext<InoriDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration["ConnectionString"], sqlServerOptionsAction: sqlOptions =>
+                {
+                    //sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
+                    //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency 
+                    sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+                });
+            });
+
+            // IdentityServer4 WebApi相关配置
             services.AddAuthentication("Bearer")
-                .AddJwtBearer("Bearer", options => { 
+                .AddJwtBearer("Bearer", options =>
+                {
                     options.Authority = "http://localhost:5000";
                     options.RequireHttpsMetadata = false;
                     options.Audience = "api1";
                     options.TokenValidationParameters.ClockSkew = TimeSpan.FromMinutes(5);  // 验证token是否超时
                     options.TokenValidationParameters.RequireExpirationTime = true;
                 });
+
+            // 配置跨域请求（CORS）
+            // https://docs.microsoft.com/zh-cn/aspnet/core/security/cors?view=aspnetcore-3.1
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "_myAllowSpecificOrigins", builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                    // builder.AllowAnyOrigin()
+                    // .AllowAnyHeader()
+                    // .AllowAnyMethod();
+                });
+            });
+            // services.AddCors();
+
+            // WebApi基础配置
             services.AddControllers(configure =>
                 {
                     configure.ReturnHttpNotAcceptable = true;
@@ -39,6 +76,7 @@ namespace Inori.WebApi
                 .AddNewtonsoftJson()
                 .AddXmlDataContractSerializerFormatters();
 
+            // Swagger UI的相关配置
             services.AddSwaggerDocument(config =>
             {
                 config.PostProcess = document =>
@@ -60,33 +98,22 @@ namespace Inori.WebApi
                     };
                 };
 
-                //string[] scopes = new[] { "openid", "email" };
-                //Enumerable.Empty<string>()
-                //config.AddSecurity("Bearer", Enumerable.Empty<string>(), new OpenApiSecurityScheme
-                //{
-                //    Type = OpenApiSecuritySchemeType.OAuth2,
-                //    Description = "这里是信息描述",
-                //    Flow = OpenApiOAuth2Flow.Implicit,
-                //    TokenUrl = "http://localhost:5000/connect/token",
-                //    AuthorizationUrl = "http://localhost:5000/connect/authorize",
-                //    Scopes = new Dictionary<string, string>
-                //    {
-                //        {"api1", "这里是测试API资源" }
-                //    },
-                //});
-                //config.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("Bearer"));
-                //config.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("Bearer"));
-                config.AddSecurity("apikey", Enumerable.Empty<string>(), new OpenApiSecurityScheme
+                config.AddSecurity("Bearer", Enumerable.Empty<string>(), new OpenApiSecurityScheme
                 {
-                    Type = OpenApiSecuritySchemeType.ApiKey,
-                    Name = "api1",
-                    In = OpenApiSecurityApiKeyLocation.Header
+                    Type = OpenApiSecuritySchemeType.OAuth2,
+                    Description = "这里是信息描述",
+                    Flow = OpenApiOAuth2Flow.Implicit,
+                    TokenUrl = "http://localhost:5000/connect/token",
+                    AuthorizationUrl = "http://localhost:5000/connect/authorize",
+                    Scopes = new Dictionary<string, string> {
+                        {"api1", "这里是测试API资源" }
+                    },
                 });
-
                 config.OperationProcessors.Add(
                     new AspNetCoreOperationSecurityScopeProcessor("bearer"));
             });
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IPrincipal>(provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
             services.AddTransient<ICurrentPrincipalAccessor, ThreadCurrentPrincipalAccessor>();
@@ -99,25 +126,29 @@ namespace Inori.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
+            // https://docs.microsoft.com/zh-cn/aspnet/core/fundamentals/middleware/?view=aspnetcore-3.1#middleware-order
+            // 中间件的顺序
 
             app.UseRouting();
+
+            app.UseCors("_myAllowSpecificOrigins");
 
             app.UseAuthentication();
 
             app.UseAuthorization();
 
             app.UseOpenApi();
-            app.UseSwaggerUi3();
-            //app.UseSwaggerUi3(settings =>
-            //{
-            //    settings.OAuth2Client = new OAuth2ClientSettings
-            //    {
-            //        ClientId = "api1",
-            //        ClientSecret = "",
-            //        AppName = "Test Swagger Api",
-            //    };
-            //});
+
+            app.UseSwaggerUi3(settings =>
+            {
+                settings.OAuth2Client = new OAuth2ClientSettings
+                {
+                    ClientId = "swagger_client_api",
+                    ClientSecret = "",
+                    AppName = "Test Swagger Api",
+                };
+            });
 
             app.UseEndpoints(endpoints =>
             {
