@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace Inori.IdentityApi.Controllers
 {
     [SecurityHeaders]
-    [AllowAnonymous]
+    [Authorize]
     public class ConsentController : Controller
     {
         private readonly IIdentityServerInteractionService _interaction;

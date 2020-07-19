@@ -1,4 +1,38 @@
-.label-on-right {
-  padding: 17px 5px 0 0;
+.inori-form-lable {
+  // border: solid 1px #ddd;
+  // padding-right: 0;
+  // padding-left: 0;
+  // text-align: right;
+  // vertical-align: bottom;
+  // justify-content: 20;
+  // word-spacing: 3em;  // 英文
+  // letter-spacing: 0.4em; // 中文文字间距
+  padding: 16px 0 0 0;
   text-align: right;
+}
+
+.inori-form-single {
+  padding: 16px 0 0 0;
+
+  mat-radio-group {
+    mat-radio-button {
+      margin-right: 5px;
+    }
+  }
+}
+
+.inori-form-secion {
+  padding: 14px 0 0 0;
+
+  mat-checkbox {
+    margin-right: 5px;
+  }
+}
+
+.ml-auto {
+  margin-left: auto !important;
+}
+
+.mr-auto {
+  margin-right: auto !important;
 }

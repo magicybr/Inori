@@ -15,7 +15,7 @@ export const environment = {
     scope: 'api1 openid profile email',
     response_type: 'id_token token',
     automaticSilentRenew: true,
-    accessTokenExpiringNotificationTime: 4,
+    accessTokenExpiringNotificationTime: 5,
     filterProtocolClaims: true,
     loadUserInfo: true
   }

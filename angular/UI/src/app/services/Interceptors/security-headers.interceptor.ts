@@ -6,9 +6,8 @@ import { Observable } from 'rxjs';
 
 export class SecurityHeadersInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // console.log('HttpHeaderCommonInterceptor');
     return next.handle(req.clone({
-      withCredentials: false,
+      withCredentials: true,
     }));
   }
 }

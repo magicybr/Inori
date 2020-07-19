@@ -1,0 +1,111 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card ">
+          <div class="card-header card-header-rose card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">person</i>
+            </div>
+            <h4 class="card-title">用户列表</h4>
+          </div>
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+                <div style="padding-top: 17px;">
+                  当前页面可显示10条数据
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6">
+                <mat-form-field [floatLabel]="'never'" style="width: 250px; float: right;">
+                  <input matInput placeholder="请输入查询条件">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 col-md-12">
+                <div class="table-responsive">
+                  <table class="table table-hover table-striped">
+                    <thead>
+                      <tr class="">
+                        <th class="text-center text-rose">序号</th>
+                        <th class="text-center text-rose">用户名</th>
+                        <th class="text-center text-rose">电子邮件</th>
+                        <th class="text-center text-rose">年龄</th>
+                        <th class="text-center text-rose">电话</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="text-center">1</td>
+                        <td class="text-center">张三</td>
+                        <td class="text-center">zhangsan@outlook.com</td>
+                        <td class="text-center">23</td>
+                        <td class="text-center">19899887765</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center">1</td>
+                        <td class="text-center">张三</td>
+                        <td class="text-center">zhangsan@outlook.com</td>
+                        <td class="text-center">23</td>
+                        <td class="text-center">19899887765</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center">1</td>
+                        <td class="text-center">张三</td>
+                        <td class="text-center">zhangsan@outlook.com</td>
+                        <td class="text-center">23</td>
+                        <td class="text-center">19899887765</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center">1</td>
+                        <td class="text-center">张三</td>
+                        <td class="text-center">zhangsan@outlook.com</td>
+                        <td class="text-center">23</td>
+                        <td class="text-center">19899887765</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center">1</td>
+                        <td class="text-center">张三</td>
+                        <td class="text-center">zhangsan@outlook.com</td>
+                        <td class="text-center">23</td>
+                        <td class="text-center">19899887765</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center">1</td>
+                        <td class="text-center">张三</td>
+                        <td class="text-center">zhangsan@outlook.com</td>
+                        <td class="text-center">23</td>
+                        <td class="text-center">19899887765</td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr class="">
+                        <th class="text-center text-rose">序号</th>
+                        <th class="text-center text-rose">用户名</th>
+                        <th class="text-center text-rose">电子邮件</th>
+                        <th class="text-center text-rose">年龄</th>
+                        <th class="text-center text-rose">电话</th>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 col-md-6" style="padding-top: 17px;">
+                当前数据1-10条，共40条
+              </div>
+              <div class="col-sm-12 col-md-6">
+                <mat-paginator [length]="5" [pageSize]="10" hidePageSize showFirstLastButtons>
+                </mat-paginator>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

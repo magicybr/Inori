@@ -4,7 +4,7 @@ using System.Linq;
 namespace Inori.Domain.SeedWork
 {
     /// <summary>
-    /// 值对象 
+    /// value object
     /// please refer to https://docs.microsoft.com/zh-cn/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/implement-value-objects
     /// </summary>
     public abstract class ValueObject

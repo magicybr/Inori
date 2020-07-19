@@ -16,6 +16,7 @@
     if ((Oidc && Oidc.Log && Oidc.Log.logger)) {
       Oidc.Log.logger = console;
     }
+    console.log(window.location.href);
     new UserManager().signinRedirectCallback().then(function (user) {
         if (user == null) {
           document.getElementById("waiting").style.display = "none";
@@ -25,8 +26,8 @@
         }
       })
       .catch(function (er) {
-        document.getElementById("waiting").style.display = "none";
-        document.getElementById("error").innerText = er.message;
+        // document.getElementById("waiting").style.display = "none";
+        // document.getElementById("error").innerText = er.message;
       });
 
   </script>

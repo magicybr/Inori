@@ -37,7 +37,7 @@ namespace Inori.IdentityApi
                    AllowedGrantTypes = GrantTypes.Implicit,
                    AllowAccessTokensViaBrowser = true,
                    RequireConsent = true,
-                   AccessTokenLifetime = 60,
+                   AccessTokenLifetime = 60*60,
                    RedirectUris = {
                        "http://localhost:4200/callback.html",
                        "http://localhost:4200/renew-callback.html"
@@ -65,7 +65,7 @@ namespace Inori.IdentityApi
                     PostLogoutRedirectUris = {"http://localhost:5002/signout-callback-oidc"},
                     AllowOfflineAccess = true,
                     AlwaysIncludeUserClaimsInIdToken = true,
-                    AccessTokenLifetime = 60, // 设置token超时时间
+                    AccessTokenLifetime = 60*60, // 设置token超时时间
                     AllowedScopes = {
                         OidcConstants.StandardScopes.OpenId,
                         OidcConstants.StandardScopes.Profile,
@@ -82,7 +82,7 @@ namespace Inori.IdentityApi
                     AllowAccessTokensViaBrowser = true,      // 是否通过浏览器为此客户端传输访问令牌
                     AllowOfflineAccess = true,
                     AlwaysIncludeUserClaimsInIdToken = true,
-                    AccessTokenLifetime = 60,                // 设置token超时时间
+                    AccessTokenLifetime = 60*60,                // 设置token超时时间
                     RedirectUris =
                     {
                         "http://localhost:5001/swagger/oauth2-redirect.html"

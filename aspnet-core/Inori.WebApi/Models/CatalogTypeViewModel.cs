@@ -4,9 +4,6 @@ namespace Inori.WebApi.Models
     {
         public int CatalogTypeCode { get; set; }
 
-        /// <summary>
-        /// 商品类别
-        /// </summary>
         public string CatalogTypeName { get; set; }
     }
 }

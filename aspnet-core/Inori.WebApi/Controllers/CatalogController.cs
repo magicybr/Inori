@@ -6,30 +6,35 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Inori.Domain.Infrastructure;
 using Inori.Domain.Models.Catalogs;
+using Inori.User;
 using Inori.WebApi.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Inori.WebApi.Controllers
 {
-    // [SecurityHeaders]
+
     [Route("api/Catalog")]
     [ApiController]
+    [Authorize]
     public class CatalogController : Controller
     {
         private readonly InoriDbContext _context;
         private readonly IMapper _mapper;
-
-        public CatalogController(InoriDbContext context, IMapper mapper)
+        private readonly ICurrentUser _currentUser;
+        public CatalogController(InoriDbContext context, ICurrentUser currentUser, IMapper mapper)
         {
             this._context = context ?? throw new ArgumentNullException(nameof(context));
             this._mapper = mapper ?? throw new ArgumentNullException(nameof(IMapper));
+            this._currentUser = currentUser ?? throw new ArgumentNullException(nameof(ICurrentUser));
         }
-        
+
         [HttpGet]
         [Route("items")]
         public async Task<ActionResult<IEnumerable<CatalogItemViewModel>>> ItemsAsync()
         {
+            var context = HttpContext;
             var root = (IQueryable<CatalogItem>)this._context.CatalogItems;
 
             var item = await root.ToListAsync();

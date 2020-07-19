@@ -59,6 +59,8 @@ namespace Inori.IdentityApi
             app.UseRouting();
 
             app.UseIdentityServer();
+
+            app.UseAuthorization();
             
             app.UseEndpoints(endpoints =>
             {

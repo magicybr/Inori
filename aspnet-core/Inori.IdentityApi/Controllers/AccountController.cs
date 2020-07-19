@@ -85,7 +85,6 @@ namespace Inori.IdentityApi.Controllers
                 }
             }
 
-            // ��֤��¼
             if (ModelState.IsValid)
             {
                 if (_user.ValidateCredentials(model.Username, model.Password))

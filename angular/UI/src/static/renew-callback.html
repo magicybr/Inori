@@ -13,10 +13,20 @@
     var Oidc = window.Oidc,
       UserManager = Oidc.UserManager;
 
+    console.log('renew-callback');
+
     if ((Oidc && Oidc.Log && Oidc.Log.logger)) {
       Oidc.Log.logger = console;
     }
-    new UserManager().signinSilentCallback();
+
+    new UserManager().signinSilentCallback().then((user)=>{
+      console.log(user);
+    }).catch((err) => {
+      console.log(err);
+    });
+    // new UserManager().signinRedirectCallback().catch((err)=>{
+    //   console.log(err);
+    // });
 
   </script>
 </body>

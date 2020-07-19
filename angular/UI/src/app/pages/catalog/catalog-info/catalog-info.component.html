@@ -1,0 +1,159 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <form [formGroup]="catalogItemForm">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-rose card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">mail_outline</i>
+              </div>
+              <h4 class="card-title">商品信息</h4>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <label class="col-md-2 inori-form-lable">商品品牌</label>
+                    <div class="col-md-9">
+                      <mat-form-field>
+                        <mat-select formControlName="catalogBrand">
+                          <mat-option *ngFor="let item of catalogBrandSource" value="{{item.CatalogBrandCode}}">
+                            {{item.CatalogBrandName}}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error>商品品牌不能为空</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <label class="col-md-2 inori-form-lable">商品类别</label>
+                    <div class="col-md-9">
+                      <mat-form-field>
+                        <mat-select formControlName="catalogType">
+                          <mat-option *ngFor="let item of catalogTypeSource" value="{{item.CatalogTypeCode}}">
+                            {{item.CatalogTypeName}}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error>商品类别不能为空</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <label class="col-md-2 inori-form-lable">商品名称</label>
+                    <div class="col-md-9">
+                      <mat-form-field>
+                        <input matInput #input placeholder="" maxlength="50" formControlName="productName">
+                        <mat-hint align="end">{{input.value?.length || 0}}/50</mat-hint>
+                        <mat-error *ngIf="catalogItemForm.controls['productName'].errors?.required">商品名称不能为空*
+                        </mat-error>
+                        <mat-error *ngIf="catalogItemForm.controls['productName'].errors?.maxLength">商品名称长度不能超过50位
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-md-2 inori-form-lable">单价</label>
+                <div class="col-md-9">
+                  <mat-form-field>
+                    <input matInput type="number" placeholder="" class="inori-amount-right-align" maxlength="2" min="0"
+                      formControlName="price">
+                    <span matPrefix>$&nbsp;</span>
+                    <span matSuffix>.00</span>
+                    <mat-error *ngIf="catalogItemForm.controls['price'].errors?.required">商品金额不能为空</mat-error>
+                    <mat-error *ngIf="catalogItemForm.controls['price'].errors?.maxLength">商品金额长度不能超过9位</mat-error>
+                    <mat-error *ngIf="catalogItemForm.controls['price'].errors?.min">商品金额不能小于0</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-sm-2 inori-form-lable">库存数量</label>
+                <div class="col-sm-9">
+                  <mat-form-field>
+                    <input matInput type="number" placeholder="" maxlength="10" min="0" class="inori-right-align"
+                      formControlName="availableStock">
+                    <mat-error *ngIf="catalogItemForm.controls['availableStock'].errors?.required">库存数量不能为空</mat-error>
+                    <mat-error *ngIf="catalogItemForm.controls['availableStock'].errors?.min">库存数量最少不能低于0个</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-md-2 inori-form-lable" title="可重新订购的库存数量">RT</label>
+                <div class="col-md-9">
+                  <mat-form-field>
+                    <input matInput type="number" placeholder="" maxlength="10" min="0" class="inori-right-align"
+                      formControlName="reStockThreshold">
+                    <mat-error *ngIf="catalogItemForm.controls['reStockThreshold'].errors?.required">重新订购的库存数量不能为空
+                    </mat-error>
+                    <mat-error *ngIf="catalogItemForm.controls['reStockThreshold'].errors?.min">重新订购的库存数量不能少于0个
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-md-2 inori-form-lable" title="随时可以存货的最大数量单位（由于仓库中的物理/物流限制）">MST</label>
+                <div class="col-md-9">
+                  <mat-form-field>
+                    <input matInput type="number" placeholder="" maxlength="10" min="0" class="inori-right-align"
+                      formControlName="maxStockThreshold">
+                    <mat-error *ngIf="catalogItemForm.controls['maxStockThreshold'].errors?.required">不能为空</mat-error>
+                    <mat-error *ngIf="catalogItemForm.controls['maxStockThreshold'].errors?.min">最少不能小于0个</mat-error>
+                    <mat-error *ngIf="catalogItemForm.controls['maxStockThreshold'].errors?.max">最多不能大于1000个</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-9">
+                  <div class="fileinput fileinput-new text-center" data-provides="fileinput" style="margin-top: 10px;">
+                    <div class="fileinput-new img-thumbnail" style="width: 250px; height: 200px;">
+                      <img src="../../assets/img/image_placeholder.jpg" alt="...">
+                    </div>
+                    <div class="fileinput-preview fileinput-exists img-thumbnail" style="width: 250px; height: 200px;">
+                    </div>
+                    <div>
+                      <!-- <span class="btn btn-outline-secondary btn-file"> -->
+                      <span class="btn btn-rose btn-round btn-file">
+                        <span class="fileinput-new">Select image</span>
+                        <span class="fileinput-exists">Change</span>
+                        <input type="file" name="productPic">
+                      </span>
+                      <!-- <a href="#" class="btn btn-outline-secondary fileinput-exists" data-dismiss="fileinput">Remove</a> -->
+                      <a href="#" class="btn btn-rose btn-round btn-file fileinput-exists"
+                        data-dismiss="fileinput">Remove</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <label class="col-md-2 inori-form-lable">商品描述</label>
+                <div class="col-md-9">
+                  <mat-form-field>
+                    <textarea matInput rows="5"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer ml-auto">
+              <button mat-raised-button type="button" class="btn btn-rose" (click)="Reset()">
+                清&nbsp;&nbsp;除</button>
+              <button mat-raised-button type="button" class="btn btn-rose" [disabled]="catalogItemForm.invalid"
+                (click)="Submit()">
+                保&nbsp;&nbsp;存</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -25,6 +25,18 @@ export const AdminLayoutRoutes: Routes = [
           {
             path: 'products',
             loadChildren: () => import('../../products/products.module').then(m => m.ProductsModule),
+          },
+          {
+            path: 'auditlog',
+            loadChildren: () => import('../../auditlog/auditlog.module').then(m => m.AuditlogModule),
+          },
+          {
+            path: 'items',
+            loadChildren: () => import('../../catalog/catalog.module').then(m => m.CatalogModule),
+          },
+          {
+            path: 'users',
+            loadChildren: () => import('../../users/users.module').then(m => m.UsersModule)
           }
         ]
       }

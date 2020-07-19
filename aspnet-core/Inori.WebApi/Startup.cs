@@ -14,7 +14,6 @@ using NSwag.Generation.Processors.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Security.Principal;
 
 namespace Inori.WebApi
@@ -48,7 +47,7 @@ namespace Inori.WebApi
                     options.Authority = "http://localhost:5000";
                     options.RequireHttpsMetadata = false;
                     options.Audience = "api1";
-                    options.TokenValidationParameters.ClockSkew = TimeSpan.FromMinutes(5);  // 验证token是否超时
+                    options.TokenValidationParameters.ClockSkew = TimeSpan.FromMinutes(10);  // 验证token是否超时
                     options.TokenValidationParameters.RequireExpirationTime = true;
                 });
 
@@ -60,13 +59,11 @@ namespace Inori.WebApi
                 {
                     builder.WithOrigins("http://localhost:4200")
                     .AllowAnyHeader()
-                    .AllowAnyMethod();
-                    // builder.AllowAnyOrigin()
-                    // .AllowAnyHeader()
-                    // .AllowAnyMethod();
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+                    
                 });
             });
-            // services.AddCors();
 
             // WebApi基础配置
             services.AddControllers(configure =>

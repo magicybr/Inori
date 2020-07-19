@@ -7,15 +7,12 @@ namespace Inori.User
     {
         bool IsAuthenticated { get; }
 
-        // 用户ID
         [CanBeNull]
         int? Id { get; }
 
-        // 用户名
         [CanBeNull]
         string UserName { get; }
 
-        // 电子邮件
         [CanBeNull]
         string Email { get; set; }
 

@@ -1,0 +1,29 @@
+.inori-form-lable {
+  padding: 16px 0 0 0;
+  text-align: right;
+}
+
+.inori-right-align{
+  text-align: right;
+}
+
+.inori-amount-right-align {
+  text-align: right;
+}
+
+input.inori-amount-right-align::-webkit-outer-spin-button,
+input.inori-amount-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.inori-right-align {
+  -moz-appearance: textfield;
+}
+
+.ml-auto {
+  margin-left: auto !important;
+}
+
+.mr-auto {
+  margin-right: auto !important;
+}

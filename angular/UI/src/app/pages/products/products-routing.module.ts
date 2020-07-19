@@ -6,6 +6,7 @@ import { ProductsComponent } from './products.component';
 import { CatalogResolverService } from 'src/app/services/catalog/catalog-resolver.service';
 
 
+
 const routes: Routes = [
   {
     path: '', component: ProductsComponent,

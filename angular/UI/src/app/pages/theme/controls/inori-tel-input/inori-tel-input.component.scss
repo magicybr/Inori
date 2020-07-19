@@ -1,0 +1,21 @@
+.inori-tel-input-container {
+  display: flex;
+}
+
+.inori-tel-input-element {
+  border: none;
+  background: none;
+  padding: 0;
+  outline: none;
+  font: inherit;
+  text-align: center;
+}
+
+.inori-tel-input-spacer {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+:host.inori-floating .inori-tel-input-spacer {
+  opacity: 1;
+}

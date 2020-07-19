@@ -1,0 +1,102 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-tabs card-header-primary">
+          <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper">
+              <span class="nav-tabs-title">Tasks:</span>
+              <ul class="nav nav-tabs" data-tabs="tabs">
+                <li class="nav-item">
+                  <a mat-button class="nav-link active" href="#profile" data-toggle="tab">
+                    <i class="material-icons">bug_report</i> Bugs
+                    <div class="ripple-container"></div>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a mat-button class="nav-link" href="#messages" data-toggle="tab">
+                    <i class="material-icons">code</i> Website
+                    <div class="ripple-container"></div>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a mat-button class="nav-link" href="#settings" data-toggle="tab">
+                    <i class="material-icons">cloud</i> Server
+                    <div class="ripple-container"></div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="tab-content">
+            <div class="tab-pane active" id="profile">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                    <table mat-table [dataSource]="dataSource" matSort class="table table-striped">
+                      <ng-container matColumnDef="Id">
+                        <th mat-header-cell *matHeaderCellDef class="text-primary" mat-sort-header>ID</th>
+                        <td mat-cell *matCellDef="let element">{{element.Id}}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="BrowserInfo">
+                        <th mat-header-cell *matHeaderCellDef class="text-primary">浏览器信息</th>
+                        <td mat-cell *matCellDef="let element">
+                          <!-- <a href="javascript:void(0)" title="{{element.BrowserInfo}}">Chrome</a> -->
+                          <span title="{{element.BrowserInfo}}">Chrome</span>
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="ServiceName">
+                        <th mat-header-cell *matHeaderCellDef class="text-primary">服务名</th>
+                        <td mat-cell *matCellDef="let element" class="">{{element.ServiceName|ServiceNameSplit}}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="MethodName">
+                        <th mat-header-cell *matHeaderCellDef class="text-primary">方法名称</th>
+                        <td mat-cell *matCellDef="let element" class="">{{element.MethodName}}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="ExecutionTime">
+                        <th mat-header-cell *matHeaderCellDef class="text-primary">执行处理时间</th>
+                        <td mat-cell *matCellDef="let element" class="">{{element.ExecutionTime}}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="ExecutionDuration">
+                        <th mat-header-cell *matHeaderCellDef class="text-primary">执行时间</th>
+                        <td mat-cell *matCellDef="let element" class="">{{element.ExecutionDuration}}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="loading">
+                        <mat-footer-cell *matFooterCellDef colspan="6">
+                          Loading data...
+                        </mat-footer-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="noData">
+                        <mat-footer-cell *matFooterCellDef colspan="6">No Data....
+                        </mat-footer-cell>
+                      </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row;columns:displayedColumns;let index=index"
+                        class="{{index % 2 == 0 ? 'odd':'even'}}"></tr>
+                      <tr mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide': dataSource != null}"></tr>
+                      <tr mat-footer-row *matFooterRowDef="['noData']"
+                        [ngClass]="{'hide': !(dataSource != null && dataSource.data.length == 0)}"></tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="row" [ngClass]="{'hide' : !(dataSource != null && dataSource.data.length != 0)}">
+                <div class="col-md-12">
+                  <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+                    showFirstLastButtons>
+                  </mat-paginator>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="messages">
+            </div>
+            <div class="tab-pane" id="settings">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
