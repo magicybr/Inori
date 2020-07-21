@@ -1,12 +1,12 @@
 export class CatalogBrand {
-  CatalogBrandCode: number;
-  CatalogBrandName: string;
+  catalogBrandCode: number;
+  catalogBrandName: string;
 }
 
 export const CatalogBrandList: CatalogBrand[] = [
-  { CatalogBrandCode: 1, CatalogBrandName: '麦卡伦' },
-  { CatalogBrandCode: 2, CatalogBrandName: '百龄坛' },
-  { CatalogBrandCode: 3, CatalogBrandName: '三得利' },
-  { CatalogBrandCode: 4, CatalogBrandName: '人头马' },
-  { CatalogBrandCode: 5, CatalogBrandName: '轩尼诗' },
+  { catalogBrandCode: 1, catalogBrandName: '麦卡伦' },
+  { catalogBrandCode: 2, catalogBrandName: '百龄坛' },
+  { catalogBrandCode: 3, catalogBrandName: '三得利' },
+  { catalogBrandCode: 4, catalogBrandName: '人头马' },
+  { catalogBrandCode: 5, catalogBrandName: '轩尼诗' },
 ]

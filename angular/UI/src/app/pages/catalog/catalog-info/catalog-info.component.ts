@@ -20,6 +20,8 @@ export class CatalogInfoComponent implements OnInit {
   catalogBrandSource: CatalogBrand[];
   catalogItem: CatalogItem;
   catalogItemForm: FormGroup;
+  catalogBrandSelectedValue: string;
+  catalogTypeSelectedValue: string;
   constructor(
     private route: ActivatedRoute,
     private notification: NotificationService,
@@ -27,8 +29,17 @@ export class CatalogInfoComponent implements OnInit {
     private catalogService: CatalogService
   ) {
 
-    route.params.subscribe(p => {
-      catalogService.GetCatalogItemById(Number(p.Id)).subscribe(item => this.catalogItem = item);
+    this.catalogItemForm = this.fb.group({
+      id: [null],
+      productName: [null, [Validators.required, Validators.maxLength(50)]],
+      catalogBrand: [null, Validators.required],
+      catalogType: [null, Validators.required],
+      price: [0, [Validators.required, Validators.maxLength(9), Validators.min(0)]],
+      description: [null, Validators.maxLength(200)],
+      availableStock: [0, [Validators.required, Validators.min(0)]],
+      reStockThreshold: [0, [Validators.required, Validators.min(0)]],
+      maxStockThreshold: [0, [Validators.required, Validators.min(0), Validators.max(1000)]],
+      onReorder: [false],
     });
 
     route.data.pipe(map(res => res.catalogData)).subscribe({
@@ -38,33 +49,23 @@ export class CatalogInfoComponent implements OnInit {
       }
     });
 
-    // console.log(this.catalogItem);
-
-    this.catalogItemForm = this.fb.group({
-      id: [this.catalogItem.Id],
-      productName: [this.catalogItem.ProductName, [Validators.required, Validators.maxLength(50)]],
-      catalogBrand: [this.catalogItem.CatalogBrandCode, Validators.required],
-      catalogType: [this.catalogItem.CatalogTypeCode, Validators.required],
-      price: [this.catalogItem.Price, [Validators.required, Validators.maxLength(9), Validators.min(0)]],
-      description: [this.catalogItem.Description, Validators.maxLength(200)],
-      availableStock: [this.catalogItem.AvailableStock, [Validators.required, Validators.min(0)]],
-      reStockThreshold: [this.catalogItem.RestockThreshold, [Validators.required, Validators.min(0)]],
-      maxStockThreshold: [this.catalogItem.MaxStockThreshold, [Validators.required, Validators.min(0), Validators.max(1000)]],
-      onReorder: [this.catalogItem.OnReorder],
+    route.params.subscribe(p => {
+      catalogService.GetCatalogItemById(Number(p.Id)).subscribe(item => {
+        this.catalogItem = item;
+        this.catalogBrandSelectedValue = this.catalogItem.catalogBrandCode.toString();
+        this.catalogTypeSelectedValue = this.catalogItem.catalogTypeCode.toString();
+        this.catalogItemForm.patchValue({
+          id: [this.catalogItem.id],
+          productName: [this.catalogItem.productName],
+          price: [this.catalogItem.price],
+          description: [this.catalogItem.description],
+          availableStock: [this.catalogItem.availableStock],
+          reStockThreshold: [this.catalogItem.restockThreshold],
+          maxStockThreshold: [this.catalogItem.maxStockThreshold],
+          onReorder: [this.catalogItem.onReorder],
+        });
+      });
     });
-
-    // this.catalogItemForm = this.fb.group({
-    //   id: [null],
-    //   productName: ['', [Validators.required, Validators.maxLength(50)]],
-    //   catalogBrand: ['', Validators.required],
-    //   catalogType: ['', Validators.required],
-    //   price: [0, [Validators.required, Validators.maxLength(9), Validators.min(0)]],
-    //   description: ['', Validators.maxLength(200)],
-    //   availableStock: [0, [Validators.required, Validators.min(0)]],
-    //   reStockThreshold: [0, [Validators.required, Validators.min(0)]],
-    //   maxStockThreshold: [0, [Validators.required, Validators.min(0), Validators.max(1000)]],
-    //   onReorder: [false],
-    // });
   }
 
   ngOnInit(): void {
@@ -78,29 +79,17 @@ export class CatalogInfoComponent implements OnInit {
 
   InitializeFormGroup() {
     this.catalogItemForm = this.fb.group({
-      id: [this.catalogItem.Id],
-      productName: [this.catalogItem.ProductName, [Validators.required, Validators.maxLength(50)]],
-      catalogBrand: [this.catalogItem.CatalogBrandCode, Validators.required],
-      catalogType: [this.catalogItem.CatalogTypeCode, Validators.required],
-      price: [this.catalogItem.Price, [Validators.required, Validators.maxLength(9), Validators.min(0)]],
-      description: [this.catalogItem.Description, Validators.maxLength(200)],
-      availableStock: [this.catalogItem.AvailableStock, [Validators.required, Validators.min(0)]],
-      reStockThreshold: [this.catalogItem.RestockThreshold, [Validators.required, Validators.min(0)]],
-      maxStockThreshold: [this.catalogItem.MaxStockThreshold, [Validators.required, Validators.min(0), Validators.max(1000)]],
-      onReorder: [this.catalogItem.OnReorder],
+      id: [this.catalogItem.id],
+      productName: [this.catalogItem.productName, [Validators.required, Validators.maxLength(50)]],
+      catalogBrand: [this.catalogItem.catalogBrandCode, Validators.required],
+      catalogType: [this.catalogItem.catalogTypeCode, Validators.required],
+      price: [this.catalogItem.price, [Validators.required, Validators.maxLength(9), Validators.min(0)]],
+      description: [this.catalogItem.description, Validators.maxLength(200)],
+      availableStock: [this.catalogItem.availableStock, [Validators.required, Validators.min(0)]],
+      reStockThreshold: [this.catalogItem.restockThreshold, [Validators.required, Validators.min(0)]],
+      maxStockThreshold: [this.catalogItem.maxStockThreshold, [Validators.required, Validators.min(0), Validators.max(1000)]],
+      onReorder: [this.catalogItem.onReorder],
     });
-    // this.catalogItemForm.setValue({
-    //   id: null,
-    //   productName: '',
-    //   catalogBrand: '',
-    //   catalogType: '',
-    //   price: 0,
-    //   description: '',
-    //   availableStock: 0,
-    //   reStockThreshold: 0,
-    //   maxStockThreshold: 0,
-    //   onReorder: false,
-    // });
   }
 
   Submit() {

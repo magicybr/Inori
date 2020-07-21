@@ -17,9 +17,9 @@
                     <label class="col-md-2 inori-form-lable">商品品牌</label>
                     <div class="col-md-9">
                       <mat-form-field>
-                        <mat-select formControlName="catalogBrand">
-                          <mat-option *ngFor="let item of catalogBrandSource" value="{{item.CatalogBrandCode}}">
-                            {{item.CatalogBrandName}}
+                        <mat-select formControlName="catalogBrand" [(value)]="catalogBrandSelectedValue">
+                          <mat-option *ngFor="let item of catalogBrandSource" value="{{item.catalogBrandCode}}">
+                            {{item.catalogBrandName}}
                           </mat-option>
                         </mat-select>
                         <mat-error>商品品牌不能为空</mat-error>
@@ -34,7 +34,7 @@
                     <label class="col-md-2 inori-form-lable">商品类别</label>
                     <div class="col-md-9">
                       <mat-form-field>
-                        <mat-select formControlName="catalogType">
+                        <mat-select formControlName="catalogType" [(value)]="catalogTypeSelectedValue">
                           <mat-option *ngFor="let item of catalogTypeSource" value="{{item.CatalogTypeCode}}">
                             {{item.CatalogTypeName}}
                           </mat-option>
@@ -133,6 +133,12 @@
                         data-dismiss="fileinput">Remove</a>
                     </div>
                   </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-9">
+                  <img alt="..." src="{{catalogItem.pictureUri}}">
                 </div>
               </div>
               <div class="row">

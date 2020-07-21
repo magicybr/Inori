@@ -37,10 +37,13 @@ export class CatalogService {
   }
 
   GetCatalogItemById(Id: number): Observable<CatalogItem> {
-    return from(CatalogItemList).pipe(
-      find(item => {
-        return item.Id === Id;
-      })
-    );
+    return this.httpClient.get<CatalogItem>('http://localhost:5001/api/catalog/items/1');
+    // return from(CatalogItemList).pipe(
+    //   find(item => {
+    //     return item.Id === Id;
+    //   })
+    // );
   }
+
+
 }
