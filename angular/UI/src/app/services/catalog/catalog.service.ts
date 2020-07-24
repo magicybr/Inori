@@ -37,6 +37,7 @@ export class CatalogService {
   }
 
   GetCatalogItemById(Id: number): Observable<CatalogItem> {
+    console.log(Id);
     return this.httpClient.get<CatalogItem>('http://localhost:5001/api/catalog/items/1');
     // return from(CatalogItemList).pipe(
     //   find(item => {

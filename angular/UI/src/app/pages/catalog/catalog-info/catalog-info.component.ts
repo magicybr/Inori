@@ -18,7 +18,7 @@ declare var $: any;
 export class CatalogInfoComponent implements OnInit {
   catalogTypeSource: CatalogType[];
   catalogBrandSource: CatalogBrand[];
-  catalogItem: CatalogItem;
+  public catalogItem: CatalogItem;
   catalogItemForm: FormGroup;
   catalogBrandSelectedValue: string;
   catalogTypeSelectedValue: string;
@@ -28,48 +28,92 @@ export class CatalogInfoComponent implements OnInit {
     private fb: FormBuilder,
     private catalogService: CatalogService
   ) {
-
-    this.catalogItemForm = this.fb.group({
-      id: [null],
-      productName: [null, [Validators.required, Validators.maxLength(50)]],
-      catalogBrand: [null, Validators.required],
-      catalogType: [null, Validators.required],
-      price: [0, [Validators.required, Validators.maxLength(9), Validators.min(0)]],
-      description: [null, Validators.maxLength(200)],
-      availableStock: [0, [Validators.required, Validators.min(0)]],
-      reStockThreshold: [0, [Validators.required, Validators.min(0)]],
-      maxStockThreshold: [0, [Validators.required, Validators.min(0), Validators.max(1000)]],
-      onReorder: [false],
-    });
-
+    console.log('ctor');
     route.data.pipe(map(res => res.catalogData)).subscribe({
-      next: ([brands, types]) => {
+      next: ([brands, types, item]) => {
         this.catalogBrandSource = brands;
         this.catalogTypeSource = types;
+        this.catalogItem = item;
       }
     });
 
-    route.params.subscribe(p => {
-      catalogService.GetCatalogItemById(Number(p.Id)).subscribe(item => {
-        this.catalogItem = item;
-        this.catalogBrandSelectedValue = this.catalogItem.catalogBrandCode.toString();
-        this.catalogTypeSelectedValue = this.catalogItem.catalogTypeCode.toString();
-        this.catalogItemForm.patchValue({
-          id: [this.catalogItem.id],
-          productName: [this.catalogItem.productName],
-          price: [this.catalogItem.price],
-          description: [this.catalogItem.description],
-          availableStock: [this.catalogItem.availableStock],
-          reStockThreshold: [this.catalogItem.restockThreshold],
-          maxStockThreshold: [this.catalogItem.maxStockThreshold],
-          onReorder: [this.catalogItem.onReorder],
-        });
-      });
+    this.catalogItemForm = this.fb.group({
+      id: [this.catalogItem.id],
+      productName: [this.catalogItem.productName, [Validators.required, Validators.maxLength(50)]],
+      catalogBrand: [this.catalogItem.catalogBrandCode.toString(), Validators.required],
+      catalogType: [this.catalogItem.catalogTypeCode.toString(), Validators.required],
+      price: [this.catalogItem.price, [Validators.required, Validators.maxLength(9), Validators.min(0)]],
+      description: [this.catalogItem.description, Validators.maxLength(200)],
+      availableStock: [this.catalogItem.availableStock, [Validators.required, Validators.min(0)]],
+      reStockThreshold: [this.catalogItem.restockThreshold, [Validators.required, Validators.min(0)]],
+      maxStockThreshold: [this.catalogItem.maxStockThreshold, [Validators.required, Validators.min(0), Validators.max(1000)]],
+      onReorder: [this.catalogItem.onReorder],
     });
   }
 
   ngOnInit(): void {
+    console.log('init');
+    console.log(this.catalogItem);
+    // console.log($('#catalogItemPic'));
+    // $('#catalogItemPic').fileinput({
+    //   initialPreview: [
+    //     '<img alt="..." src="http://localhost:5001/api/catalog/items/1/pic/">'
+    //   ]
+    // });
 
+    // tslint:disable-next-line:only-arrow-functions
+    $('#catalogItemPic').fileinput({
+      url: '',
+      dataType: 'json',
+      autoupload: false,
+      acceptFileTypes: /(gif|jpe?g|png)$/i,
+      maxFileSize: 1000000, // 1 MB
+      imageMaxWidth: 100,
+      message: {
+        acceptFileTypes: '文件类型不匹配',
+        maxFileSize: '文件过大',
+        minFileSize: '文件过小'
+      },
+    }).on('change.bs.fileinput', function (e, data, previewId, index) {
+      console.log(e);
+      console.log(data);
+    }).on('clear.bs.fileinput', function (e) {
+      console.log('clear.bs.fileinput');
+    }).on('reset.bs.fileinput', function (e) {
+      console.log('reset.bs.fileinput');
+    }).on('reseted.bs.fileinput', function (e) {
+      console.log('reseted.bs.fileinput');
+    }).on('max_size.bs.fileinput', function (e) {
+      console.log('max_size.bs.fileinput');
+    });
+
+    $('#catalogItemPic2').fileinput({
+      url: '',
+      dataType: 'json',
+      autoupload: false,
+      acceptFileTypes: /(gif|jpe?g|png)$/i,
+      maxFileSize: 1000000, // 1 MB
+      imageMaxWidth: 100,
+      message: {
+        acceptFileTypes: '文件类型不匹配',
+        maxFileSize: '文件过大',
+        minFileSize: '文件过小'
+      },
+    }).on('change.bs.fileinput', function (e, data, previewId, index) {
+      console.log(e);
+      console.log(data);
+    }).on('clear.bs.fileinput', function (e) {
+      console.log('clear.bs.fileinput');
+    }).on('reset.bs.fileinput', function (e) {
+      console.log('reset.bs.fileinput');
+    }).on('reseted.bs.fileinput', function (e) {
+      console.log('reseted.bs.fileinput');
+    }).on('max_size.bs.fileinput', function (e) {
+      console.log('max_size.bs.fileinput');
+    });
+  }
+  ngAfterViewInit() {
+    console.log('after init');
   }
 
   Reset() {
