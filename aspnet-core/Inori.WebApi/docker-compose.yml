@@ -1,0 +1,25 @@
+version: '1.0'
+
+  services:
+
+    sqldata:
+        image: mcr.microsoft./mssql/server:2017-latest
+        container_name: 'inori_db'
+        command: mysqld --character-set-server=utf8 --collation-server=utf8_general-ci
+        restart: always
+        ports:
+            - '3306:3306'
+        environment: 
+            MYSQL_ROOT_PASSWORD: pass$$word123
+            MYSQL_USER: magicybr
+            MYSQL_PASSWORD: pass$$word123
+        volumes:
+            - /d/docker/beta/mysql-init:/docker-entrypoint-initdb.d
+    inori-api:
+        build: .
+        container_name: 'inori_webapi'
+        ports: 
+            - '5001:80'
+        depends_on:
+            - sqldata
+    

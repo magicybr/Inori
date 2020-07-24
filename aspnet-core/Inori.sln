@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inori.IdentityApi", "Inori.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inori.WebApi", "Inori.WebApi\Inori.WebApi.csproj", "{CC9451A3-C4EF-4C8B-982E-CD2B3CA78B23}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inori.User", "Inori.User\Inori.User.csproj", "{6807263A-FD9D-469A-B208-9486BFD41A8C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,18 +69,6 @@ Global
 		{CC9451A3-C4EF-4C8B-982E-CD2B3CA78B23}.Release|x64.Build.0 = Release|Any CPU
 		{CC9451A3-C4EF-4C8B-982E-CD2B3CA78B23}.Release|x86.ActiveCfg = Release|Any CPU
 		{CC9451A3-C4EF-4C8B-982E-CD2B3CA78B23}.Release|x86.Build.0 = Release|Any CPU
-		{6807263A-FD9D-469A-B208-9486BFD41A8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6807263A-FD9D-469A-B208-9486BFD41A8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6807263A-FD9D-469A-B208-9486BFD41A8C}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{6807263A-FD9D-469A-B208-9486BFD41A8C}.Debug|x64.Build.0 = Debug|Any CPU
-		{6807263A-FD9D-469A-B208-9486BFD41A8C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{6807263A-FD9D-469A-B208-9486BFD41A8C}.Debug|x86.Build.0 = Debug|Any CPU
-		{6807263A-FD9D-469A-B208-9486BFD41A8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6807263A-FD9D-469A-B208-9486BFD41A8C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6807263A-FD9D-469A-B208-9486BFD41A8C}.Release|x64.ActiveCfg = Release|Any CPU
-		{6807263A-FD9D-469A-B208-9486BFD41A8C}.Release|x64.Build.0 = Release|Any CPU
-		{6807263A-FD9D-469A-B208-9486BFD41A8C}.Release|x86.ActiveCfg = Release|Any CPU
-		{6807263A-FD9D-469A-B208-9486BFD41A8C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

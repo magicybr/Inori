@@ -18,6 +18,9 @@ namespace Inori.WebApi
         public static int Main(string[] args)
         {
             var configuration = GetConfiguration();
+
+            Log.Logger = CreateSerilogLogger(configuration);
+            
             try
             {
                 Log.Information("Configuring web host({ApplicationContext})...", AppName);

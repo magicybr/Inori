@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Inori.Domain.Infrastructure;
 using Inori.Domain.Models.Catalogs;
-using Inori.User;
 using Inori.WebApi.Extensions;
 using Inori.WebApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace Inori.WebApi.Controllers
@@ -25,15 +25,17 @@ namespace Inori.WebApi.Controllers
         private readonly InoriDbContext _context;
         private readonly CatalogSettings _settings;
         private readonly IMapper _mapper;
-        private readonly ICurrentUser _currentUser;
-        public CatalogController(InoriDbContext context, IOptionsSnapshot<CatalogSettings> settings, ICurrentUser currentUser, IMapper mapper)
+        private readonly ILogger<CatalogController> _logger;
+        public CatalogController(
+            InoriDbContext context,
+            IOptionsSnapshot<CatalogSettings> settings,
+            IMapper mapper,
+            ILogger<CatalogController> logger)
         {
             this._context = context ?? throw new ArgumentNullException(nameof(context));
-            this._mapper = mapper ?? throw new ArgumentNullException(nameof(IMapper));
-
+            this._mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            this._logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this._settings = settings.Value;
-
-            this._currentUser = currentUser ?? throw new ArgumentNullException(nameof(ICurrentUser));
         }
 
         [HttpGet]

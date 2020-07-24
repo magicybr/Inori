@@ -1,6 +1,5 @@
 using AutoMapper;
 using Inori.Domain.Infrastructure;
-using Inori.User;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -48,7 +47,7 @@ namespace Inori.WebApi
             // 中间件的顺序
             app.UseRouting();
 
-            app.UseCors("_myAllowSpecificOrigins");
+            app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
 
@@ -68,11 +67,11 @@ namespace Inori.WebApi
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapDefaultControllerRoute();
                 endpoints.MapControllers();
             });
         }
     }
-
 
     public static class CustomExtensionMethods
     {
@@ -96,13 +95,12 @@ namespace Inori.WebApi
             // https://docs.microsoft.com/zh-cn/aspnet/core/security/cors?view=aspnetcore-3.1
             services.AddCors(options =>
             {
-                options.AddPolicy(name: "_myAllowSpecificOrigins", builder =>
+                options.AddPolicy(name: "CorsPolicy", builder =>
                 {
                     builder.WithOrigins("http://localhost:4200")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
-
                 });
             });
 
@@ -183,9 +181,6 @@ namespace Inori.WebApi
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IPrincipal>(provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
-            services.AddTransient<ICurrentPrincipalAccessor, ThreadCurrentPrincipalAccessor>();
-            services.AddTransient<ICurrentUser, CurrentUser>();
-
             return services;
         }
     }
