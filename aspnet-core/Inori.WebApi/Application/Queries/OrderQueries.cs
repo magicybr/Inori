@@ -1,11 +1,10 @@
 ﻿using Dapper;
-using Inori.Domain.Models.Orders.OrderAggregate;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Inori.WebApi.Queries
+namespace Inori.WebApi.Application.Queries
 {
     public class OrderQueries : IOrderQueries
     {
@@ -41,7 +40,9 @@ namespace Inori.WebApi.Queries
 
         private Order MapOrderItems(dynamic result)
         {
-            var order = new Order { };
+            var order = new Order { 
+
+            };
 
             return order;
         }

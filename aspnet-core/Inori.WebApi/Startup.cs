@@ -1,5 +1,9 @@
 using AutoMapper;
 using Inori.Domain.Infrastructure;
+using Inori.WebApi.Application.Commands;
+using Inori.WebApi.Application.Queries;
+using Inori.WebApi.Services;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,6 +37,7 @@ namespace Inori.WebApi
                 .AddCustomDbContext(Configuration)
                 .AddCustomOptions(Configuration)
                 .AddCustomIntegrationServices(Configuration)
+                .AddCustomEventbus(Configuration)
                 .AddSwagger(Configuration);
         }
 
@@ -176,11 +181,25 @@ namespace Inori.WebApi
 
             return services;
         }
-        public static IServiceCollection AddCustomIntegrationServices(this IServiceCollection services,IConfiguration configuration)
+        public static IServiceCollection AddCustomIntegrationServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            // services.AddHttpContextAccessor();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IPrincipal>(provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
+            services.AddTransient<IOrderQueries>(provider => new OrderQueries(configuration["ConnectionString"]));
+            services.AddTransient<IIdentityService, IdentityService>();
+            return services;
+        }
+
+        public static IServiceCollection AddCustomEventbus(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddMediatR(typeof(CreateOrderDraftCommand).Assembly);
+            // services.AddTransient<Func<DbConnection, IIntegrationEventLogService>>(
+            //     sp => (DbConnection c) => new IntegrationEventLogService(c)
+            // );
+            // services.AddTransient<ICatalogIntegrationEventService, CatalogIntegrationEventService>();
+            // services.AddSingleton<IEventBus, InMemoryEventBus>();
             return services;
         }
     }

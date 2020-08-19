@@ -1,0 +1,17 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Inori.Domain.EventBus.Events;
+using Microsoft.EntityFrameworkCore.Storage;
+
+namespace Inori.Domain.EventBus.IntegrationEventLog.Services
+{
+    public interface IIntegrationEventLogService
+    {
+        Task<IEnumerable<IntegrationEventLogEntry>> RetrieveEventLogsPendingToPublishAsync(Guid transactionId);
+        Task SaveEventAsync(IntegrationEvent @event,IDbContextTransaction tran);
+        Task MarkEventAsPublishedAsync(Guid eventId);
+        Task MarkEventAsInProgressAsync(Guid eventId);
+        Task MarkEventAsFailedAsync(Guid eventId);
+    }
+}

@@ -1,4 +1,4 @@
-namespace Inori.WebApi.Queries
+namespace Inori.WebApi.Application.Queries
 {
     public interface IQueries
     {

@@ -1,18 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 using AutoMapper;
 using Inori.Domain.Infrastructure;
 using Inori.Domain.Models.Catalogs;
 using Inori.WebApi.Extensions;
 using Inori.WebApi.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Inori.WebApi.Controllers
 {
@@ -36,6 +35,8 @@ namespace Inori.WebApi.Controllers
             this._mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             this._logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this._settings = settings.Value;
+
+            context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         [HttpGet]
@@ -130,35 +131,66 @@ namespace Inori.WebApi.Controllers
             return Ok(vms);
         }
 
-        [HttpPut]
+        [HttpGet]
+        [Route("catalogbrands")]
+        [ProducesResponseType(typeof(List<CatalogBrand>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<List<CatalogBrand>>> CatalogBrandsAsync()
+        {
+            return await _context.CatalogBrands.ToListAsync();
+        }
+
         [Route("items")]
+        [HttpPut]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.Created)]
-        public async Task<ActionResult> UpdateProductAsync([FromBody] CatalogItemViewModel productToUpdate)
+        public async Task<ActionResult> UpdateProductAsync([FromBody] CatalogItem productToUpdate)
         {
-            if (!ModelState.IsValid)
+            var catalogItem = await _context.CatalogItems.SingleOrDefaultAsync(i => i.Id == productToUpdate.Id);
+
+            if (catalogItem == null)
             {
-                return BadRequest(ModelState);
+                return NotFound(new { Message = $"Item with id {productToUpdate.Id} not found." });
             }
 
-            await _context.SaveChangesAsync();
+            var oldPrice = catalogItem.Price;
+            var raiseProductPriceChangedEvent = oldPrice != productToUpdate.Price;
 
-            return Created("", null);
+            // Update current product
+            catalogItem = productToUpdate;
+            _context.CatalogItems.Update(catalogItem);
+
+            if (raiseProductPriceChangedEvent)
+            {
+            }
+            else
+            {
+                await _context.SaveChangesAsync();
+            }
+
+            return CreatedAtAction(nameof(ItemByIdAsync), new { Id = productToUpdate.Id }, null);
         }
 
         [HttpPost]
         [Route("items")]
         [ProducesResponseType((int)HttpStatusCode.Created)]
-        public async Task<ActionResult> CreateProductAsync([FromBody] CatalogItemViewModel product)
+        public async Task<ActionResult> CreateProductAsync([FromBody] CatalogItem product)
         {
-            if (!ModelState.IsValid)
+
+            var item = new CatalogItem()
             {
-                return BadRequest(ModelState);
-            }
+                CatalogBrandId = product.CatalogBrandId,
+                CatalogTypeId = product.CatalogTypeId,
+                Description = product.Description,
+                Name = product.Name,
+                PictureFileName = product.PictureFileName,
+                Price = product.Price
+            };
+
+            _context.CatalogItems.Add(item);
 
             await _context.SaveChangesAsync();
 
-            return Created("", null);
+            return CreatedAtAction(nameof(ItemByIdAsync), new { id = item.Id }, null);
         }
 
         [HttpDelete]

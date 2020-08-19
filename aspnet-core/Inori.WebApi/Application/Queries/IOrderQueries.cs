@@ -1,9 +1,8 @@
-﻿using Inori.Domain.Models.Orders.OrderAggregate;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Inori.WebApi.Queries
+namespace Inori.WebApi.Application.Queries
 {
     public interface IOrderQueries
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Inori.WebApi.Queries
+namespace Inori.WebApi.Application.Queries
 {
     /// <summary>  
     /// 双TOP二分法生成分页SQL类(支持MSSQL、ACCESS)

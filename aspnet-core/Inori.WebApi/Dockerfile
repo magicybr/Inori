@@ -65,3 +65,12 @@ ENTRYPOINT ["dotnet","Inori.Webapi.dll"]
 # https://docs.docker.com/compose/startup-order/
 # https://github.com/Eficode/wait-for
 # https://segmentfault.com/a/1190000021504344
+
+# 将.net core 应用程序集添加到解决方案
+# dotnet sln Inori.sln add Inori.UnitTests/Inori.UnitTests.csproj
+
+# 添加引用程序集
+# dotnet add Inori.UnitTests.csproj reference ../Inori.WebApi/Inori.WebApi.csproj
+
+# 跟踪记录消息
+# DiagnosticSource
